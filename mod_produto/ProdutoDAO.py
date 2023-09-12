@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from mod_produto.Produto import Produto
+from mod_produto.Produto import ProdutoModel
 
 import db
 from mod_produto.ProdutoModel import ProdutoDB
@@ -32,7 +32,7 @@ def get_produto(id: int):
         session.close()
 
 @router.post("/produto/", tags=["Produto"])
-def post_produto(corpo: Produto):
+def post_produto(corpo: ProdutoModel):
     try:
         session = db.Session()
         dados = ProdutoDB(None, corpo.nome, corpo.descricao,
@@ -49,7 +49,7 @@ def post_produto(corpo: Produto):
         session.close()
 
 @router.put("/produto/{id}", tags=["Produto"])
-def put_produto(id: int, corpo: Produto):
+def put_produto(id: int, corpo: ProdutoModel):
     try:
         session = db.Session()
         dados = session.query(ProdutoDB).filter(

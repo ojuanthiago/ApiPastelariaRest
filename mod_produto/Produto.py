@@ -4,5 +4,6 @@ class ProdutoModel(BaseModel):
     id_produto: int = None
     nome: str
     descricao: str
-    foto: str = None
+    foto: bytes = None
     valor_unitario: float
+    

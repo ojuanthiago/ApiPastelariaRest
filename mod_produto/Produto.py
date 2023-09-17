@@ -6,3 +6,4 @@ class ProdutoModel(BaseModel):
     descricao: str
     foto: bytes = None
     valor_unitario: float
+    

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from ApiPastelariaRest.settings import HOST, PORT, RELOAD
+from settings import HOST, PORT, RELOAD
 
 # import das classes com as rotas/endpoints
 from mod_funcionario import FuncionarioDAO
@@ -12,6 +12,9 @@ app = FastAPI()
 app.include_router(FuncionarioDAO.router)
 app.include_router(ClienteDAO.router)
 app.include_router(ProdutoDAO.router)
+
+import db
+db.criaTabelas()
 
 if __name__ == "__main__":
     import uvicorn

@@ -36,9 +36,13 @@ def get_cliente(id: int):
 def post_cliente(corpo: ClienteModel):
     try:
         session = db.Session()
-        dados = ClienteDB(None, corpo.nome, corpo.compra_fiado,
-
-        corpo.cpf, corpo.telefone, corpo.dia_fiado, corpo.senha)
+        dados = ClienteDB(None, 
+                          corpo.nome, 
+                          corpo.cpf, 
+                          corpo.telefone, 
+                          corpo.compra_fiado,
+                          corpo.dia_fiado, 
+                          corpo.senha)
 
         session.add(dados)
         session.commit()

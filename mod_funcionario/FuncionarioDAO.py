@@ -22,12 +22,12 @@ def get_funcionario():
     finally:
         session.close()
 
-@router.get("/funcionario/{id}", tags=["Funcionário"])
-def get_funcionario(id: int):
+@router.get("/funcionario/{cpf}", tags=["Funcionário"])
+def get_funcionario(cpf: str):
     try:
         session = db.Session()
         # busca um com filtro
-        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id_funcionario == id).all()
+        dados = session.query(FuncionarioDB).filter(FuncionarioDB.cpf == cpf).all()
         return dados, 200
     except Exception as e:
         return {"erro": str(e)}, 400
@@ -44,19 +44,20 @@ def post_funcionario(corpo: FuncionarioModel):
 
         session.add(dados)
         session.commit()
-        return {"id": dados.id_funcionario}, 200
+        return {"cpf": dados.cpf}, 200
     except Exception as e:
         session.rollback()
         return {"erro": str(e)}, 400
     finally:
         session.close()
 
-@router.put("/funcionario/{id}", tags=["Funcionário"])
-def put_funcionario(id: int, corpo: FuncionarioModel):
+@router.put("/funcionario/{cpf}", tags=["Funcionário"])
+def put_funcionario(cpf: str, corpo: FuncionarioModel):
     try:
         session = db.Session()
         dados = session.query(FuncionarioDB).filter(
-        FuncionarioDB.id_funcionario == id).one()
+        FuncionarioDB.cpf == cpf).one()
+        dados.id_funcionario = corpo.id_funcionario
         dados.nome = corpo.nome
         dados.cpf = corpo.cpf
         dados.telefone = corpo.telefone
@@ -65,21 +66,21 @@ def put_funcionario(id: int, corpo: FuncionarioModel):
         dados.grupo = corpo.grupo
         session.add(dados)
         session.commit()
-        return {"id": dados.id_funcionario}, 200
+        return {"cpf": dados.cpf}, 200
     except Exception as e:
         session.rollback()
         return {"erro": str(e)}, 400
     finally:
         session.close()
 
-@router.delete("/funcionario/{id}", tags=["Funcionário"])
-def delete_funcionario(id: int):
+@router.delete("/funcionario/{cpf}", tags=["Funcionário"])
+def delete_funcionario(cpf: str):
     try:
         session = db.Session()
-        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id_funcionario == id).one()
+        dados = session.query(FuncionarioDB).filter(FuncionarioDB.cpf == cpf).one()
         session.delete(dados)
         session.commit()
-        return {"id": dados.id_funcionario}, 200
+        return {"cpf": dados.cpf}, 200
     except Exception as e:
         session.rollback()
         return {"erro": str(e)}, 400

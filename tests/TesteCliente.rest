@@ -1,5 +1,4 @@
 ### Verbo GET – listar todos
-### Verbo GET – listar todos
 GET http://localhost:8000/cliente/ HTTP/1.1
 x-token: abcBolinhasToken
 x-key: abcBolinhasKey
